@@ -26,10 +26,10 @@ class Shipping
 
 <form>
 	<div>
-		<h2>Service Checker</h2>
+		<h2>Delivery Service Checker</h2>
 		<p>Enter your Post Code to find which delivery service is available in your area.</p>
 		<fieldset>
-			<input name='postcode' placeholder='PostCode' value='<?= $postcode ?>'/>
+			<input name='postcode' placeholder='Post Code' value='<?= $postcode ?>'/>
 			<input type='submit' value='check' />
 		</fieldset>
 	</div>
@@ -49,19 +49,23 @@ class Shipping
 		if($valid)
 		{
 			
+?>
+<p class='pass'>The Post Code you supplied is a good one. Well done, we're proud of you :')</p>
+<?php
+			
 			$restrictions = self::checkPostCodeServicesRestrictions($postcode);
 			
 			if(count($restrictions) == 0)
 			{
 				
 ?>
-<p>Hooray! You can get delivery any time!</p>
+<p class='pass'>Hooray! You can get delivery any day, even Christmas day...</p>
 <?php
 				
 			} else {
 				
 ?>
-<p>Delivery is restricted in the following ways:</p>
+<p class='warning'>Oh no! Looks like delivery is restricted in the following ways:</p>
 <ul><li>
 <?php
 				echo implode('</li><li>', $restrictions);
@@ -73,7 +77,7 @@ class Shipping
 		} else {
 			
 ?>
-<p class='error'>Your Post Code is invalid. Please enter a valid Post Code.</p>
+<p class='error'>The Post Code you supplied is either invalid or has been scrubbed from existence.</p>
 <?php
 			
 		}
